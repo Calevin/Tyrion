@@ -19,7 +19,7 @@ public class Palabra implements Comparable<Palabra> {
 		this.posicion = posicion;
 	}
 
-	public boolean validarPresencia(Palabra other) {
+	public boolean tieneMismoValor(Palabra other) {
 		if (this.valor == null) {
 			if (other.getValor() != null)
 				return false;
@@ -87,8 +87,10 @@ public class Palabra implements Comparable<Palabra> {
 
 	public static List<Palabra> toListaDePalabras(String oracion, int indiceLinea) {
 		AtomicInteger indicePosicion = new AtomicInteger(0);
-		return Pattern.compile(" ").splitAsStream(oracion).map(s -> {
-			return new Palabra(s, new Posicion(indiceLinea, indicePosicion.incrementAndGet()));
-		}).collect(Collectors.toList());
+		return Pattern.compile(" ")
+				.splitAsStream(oracion)
+				.map(s -> {
+					return new Palabra(s, new Posicion(indiceLinea, indicePosicion.incrementAndGet()));
+				}).collect(Collectors.toList());
 	}
 }

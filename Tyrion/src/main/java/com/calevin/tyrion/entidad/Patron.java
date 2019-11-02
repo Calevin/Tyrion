@@ -18,20 +18,22 @@ public class Patron {
 		return evaluar(p, reicidente);
 	}
 	
-	private boolean evaluar(Palabra palabra, boolean reicidente) {
-		boolean evaluacion = false;
-		if (this.patron.get(this.indiceInterno).validarPresencia(palabra)) {
+	private boolean evaluar(Palabra palabraAevaluar, boolean reicidente) {
+		boolean resultadoEvaluacion = false;
+		Palabra palabraDelPatronEsperada = this.patron.get(this.indiceInterno);
+		
+		if (palabraDelPatronEsperada.tieneMismoValor(palabraAevaluar)) {
 			this.indiceInterno++;
-			evaluacion = true;
+			resultadoEvaluacion = true;
 		} else {
 			this.indiceInterno=0; //Se resetea
 			if (!reicidente) {
 				reicidente=true;
-				evaluacion = this.evaluar(palabra,reicidente);
+				resultadoEvaluacion = this.evaluar(palabraAevaluar,reicidente);
 			}
 		}
 		
-		return evaluacion;
+		return resultadoEvaluacion;
 	}
 	
 	public boolean patronEncontrado() {

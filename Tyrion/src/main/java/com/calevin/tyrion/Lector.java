@@ -31,12 +31,13 @@ public class Lector {
 
 	public void cargarArchivo() throws IOException {
 		AtomicInteger indiceLinea = new AtomicInteger(0);
-		try (Stream<String> stream = Files.lines(Paths.get(this.archivo))) {
+		try (Stream<String> lineasDelArchivo = Files.lines(Paths.get(this.archivo))) {
 
-			palabras = stream.map(s -> {
-				int linea = indiceLinea.incrementAndGet();
-				return new Linea(s, linea);
-				})
+			this.palabras = lineasDelArchivo
+					.map(s -> {
+							int linea = indiceLinea.incrementAndGet();
+							return new Linea(s, linea);
+					})
 					.flatMap(l -> l.getPalabras().stream())
 					.collect(Collectors.toList());
 

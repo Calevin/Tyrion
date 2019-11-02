@@ -31,31 +31,31 @@ public class PalabraTest {
 	
 
 	@Test
-	public void validarPresencia_presencia_afirmativa() {
+	public void tieneMismoValor_caso_afirmativa() {
 		Palabra p1 = new Palabra();
 		Palabra p2 = new Palabra();
 		
-		assertTrue(p1.validarPresencia(p2));
+		assertTrue(p1.tieneMismoValor(p2));
 		
 		p1.setValor("test");
 		p2.setValor("test");
 		
-		assertTrue(p1.validarPresencia(p2));
+		assertTrue(p1.tieneMismoValor(p2));
 		
 	}
 	
 	@Test
-	public void validarPresencia_presencia_negativa() {
+	public void tieneMismoValor_caso_negativo() {
 		Palabra p1 = new Palabra();
 		Palabra p2 = new Palabra();
 		
 		p2.setValor("notest");
 		
-		assertTrue(!p1.validarPresencia(p2));
-		assertTrue(!p2.validarPresencia(p1));
+		assertTrue(!p1.tieneMismoValor(p2));
+		assertTrue(!p2.tieneMismoValor(p1));
 		
 		p1.setValor("test");
 		
-		assertTrue(!p1.validarPresencia(p2));
+		assertTrue(!p1.tieneMismoValor(p2));
 	}
 }
