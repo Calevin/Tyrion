@@ -59,9 +59,19 @@ public class Lector {
 	public void comprobar(Palabra palabra, Patron patron) {
 		if (patron.evaluar(palabra) 
 				&& patron.patronEncontrado()) {
+			
 			this.patronesEncontrados.put(palabra.getPosicion(), patron);
 		}
 	}
+	
+	public Posicion getPosicionInicialPatron(Palabra palabraFinal, Patron patron) {
+		
+		int indicePalabraFinal = 1+this.palabras.indexOf(palabraFinal);
+		int indicePalabraInicial = indicePalabraFinal-patron.getPalabrasDelPatron().size();
+		
+		return this.palabras.get(indicePalabraInicial).getPosicion();
+	}
+	
 	
 	public List<Palabra> getPalabras() {
 		return palabras;
