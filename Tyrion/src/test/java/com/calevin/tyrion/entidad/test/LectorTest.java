@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.calevin.tyrion.Lector;
+import com.calevin.tyrion.entidad.NodoPatron;
 import com.calevin.tyrion.entidad.Palabra;
 import com.calevin.tyrion.entidad.Patron;
 import com.calevin.tyrion.entidad.Posicion;
@@ -32,7 +33,13 @@ public class LectorTest {
 	@Test
 	public void evaluarPatrones_ok() throws IOException {
 		Lector lector = new Lector("");
-		Patron patronUnoDosTres = new Patron("uno dos tres");
+		NodoPatron unoDosTres = new NodoPatron("uno")
+				.encadenarSiguientePalabra("dos")
+				.encadenarSiguientePalabra("tres");
+		
+		Patron patronUnoDosTres = unoDosTres.componerPatron();
+		
+		assertTrue(patronUnoDosTres.getLargoPatron()==3);
 		
 		lector.getPatrones().add(patronUnoDosTres);
 		
@@ -57,8 +64,13 @@ public class LectorTest {
 	@Test
 	public void evaluarPatrones_multiples_patrones_ok() throws IOException {
 		Lector lector = new Lector("");
-		Patron patronUnoDosTres = new Patron("uno dos tres");
-		Patron patronUnoDos = new Patron("uno dos");
+		NodoPatron unoDos = new NodoPatron("uno");
+		
+		Patron patronUnoDos = unoDos.encadenarSiguientePalabra("dos").componerPatron();
+		
+		Patron patronUnoDosTres = new NodoPatron("uno").encadenarSiguientePalabra("dos")
+				.encadenarSiguientePalabra("tres")
+				.componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();
 		patrones.add(patronUnoDosTres);
@@ -74,8 +86,8 @@ public class LectorTest {
 
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres)
-				&& lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDos));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDos));
 		
 		System.out.println("Multiples patrones:");
 		lector.getPatronesEncontrados()
@@ -96,28 +108,34 @@ public class LectorTest {
 	@Test
 	public void getPosicionInicialPatron_ok() {
 		Lector lector = new Lector("");
-		Patron patronUnoDosTres = new Patron("uno dos tres");
-		Patron patronUnoDos = new Patron("uno dos");
-		Patron patronDosTres = new Patron("dos tres");
+		NodoPatron unoDos = new NodoPatron("uno")
+				.encadenarSiguientePalabra("dos")
+				;
+		
+		Patron patronUnoDos = unoDos.componerPatron();
+		
+		Patron patronUnoDosTres = unoDos.encadenarSiguientePalabra("tres").componerPatron();
+		
+		Patron patronDosTres = (new NodoPatron("dos").encadenarSiguientePalabra("tres")).componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();
 		patrones.add(patronUnoDosTres);
 		patrones.add(patronUnoDos);
 		
 		lector.setPatrones(patrones);
-		Posicion unoUno = new Posicion(1);
-		Posicion unoDos = new Posicion(2);
-		Palabra dos = new Palabra("dos", unoDos);
+		Posicion lineaUnoColumnaUno = new Posicion(1);
+		Posicion lineaUnoColumnaDos = new Posicion(2);
+		Palabra dos = new Palabra("dos", lineaUnoColumnaDos);
 		Palabra tres = new Palabra("tres", new Posicion(3)); 
 		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("uno", unoUno)
+				new Palabra("uno", lineaUnoColumnaUno)
 				, dos
 				, tres
 				));
 
-		assertTrue(lector.getPosicionInicialPatron(dos, patronUnoDos).equals(unoUno)
-				&& lector.getPosicionInicialPatron(tres, patronUnoDosTres).equals(unoUno)
-				&& lector.getPosicionInicialPatron(tres, patronDosTres).equals(unoDos));
+		assertTrue(lector.getPosicionInicialPatron(dos, patronUnoDos).equals(lineaUnoColumnaUno)
+				&& lector.getPosicionInicialPatron(tres, patronUnoDosTres).equals(lineaUnoColumnaUno)
+				&& lector.getPosicionInicialPatron(tres, patronDosTres).equals(lineaUnoColumnaDos));
 	}
 }

@@ -1,18 +1,17 @@
 package com.calevin.tyrion.entidad;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Patron {
-	private List<Palabra> palabrasDelPatron;
-	private int indiceInterno = 0;
+	final private NodoPatron patronCompuesto;
+	private NodoPatron nodoActual;
+	private int largoPatron = -1;
 	
-	public Patron(String patron) {
+	public Patron(NodoPatron palabrasNodo) {
 		super();
-		int lineaPorDefecto = 0;
-		this.palabrasDelPatron = Palabra.toListaDePalabras(patron, lineaPorDefecto);
+		this.patronCompuesto = palabrasNodo;
+		this.nodoActual = patronCompuesto;
+		this.largoPatron = getLargoPatron();
 	}
-
+	
 	public boolean evaluar(Palabra p) {
 		boolean reicidente=false;
 		return evaluar(p, reicidente);
@@ -20,13 +19,12 @@ public class Patron {
 	
 	private boolean evaluar(Palabra palabraAevaluar, boolean reicidente) {
 		boolean resultadoEvaluacion = false;
-		Palabra palabraDelPatronEsperada = this.palabrasDelPatron.get(this.indiceInterno);
 		
-		if (palabraDelPatronEsperada.tieneMismoValor(palabraAevaluar)) {
-			this.indiceInterno++;
+		if (nodoActual.tieneMismoValor(palabraAevaluar)) {
+			nodoActual = nodoActual.getSiguientePalabra();
 			resultadoEvaluacion = true;
 		} else {
-			this.indiceInterno=0; //Se resetea
+			this.nodoActual = patronCompuesto;
 			if (!reicidente) {
 				reicidente=true;
 				resultadoEvaluacion = this.evaluar(palabraAevaluar,reicidente);
@@ -37,8 +35,8 @@ public class Patron {
 	}
 	
 	public boolean patronEncontrado() {
-		if (this.indiceInterno == this.palabrasDelPatron.size()) {
-			this.indiceInterno = 0;
+		if(nodoActual==null) {
+			this.nodoActual=this.patronCompuesto;
 			return true;
 		} else {
 			return false;
@@ -58,20 +56,27 @@ public class Patron {
 		return true;
 	}*/
 	
-	public List<Palabra> getPalabrasDelPatron() {
-		return palabrasDelPatron;
-	}
-
-	public void setPalabrasDelPatron(List<Palabra> patron) {
-		this.palabrasDelPatron = patron;
-	}
-
 	@Override
 	public String toString() {
 		//patronList.stream().map(s -> s.toString() + "\n").forEach(System.out::println);
-		return "Patron [ patron=" + palabrasDelPatron.stream()
-					.map(s -> s.getValor().toString())
-					.collect(Collectors.joining()) + "]";
+		return "Patron [ patron=" + patronCompuesto.toString() + "]";
 	}
 	
+	public int getLargoPatron() {
+		if (this.largoPatron==-1) {
+			this.largoPatron = acumularNumeroPalabras(patronCompuesto, 0);
+		}
+		
+		return this.largoPatron; 
+	}
+	
+	private int acumularNumeroPalabras (NodoPatron p, int i) {
+		i++;
+		return (p.getSiguientePalabra()!=null ? acumularNumeroPalabras(p.getSiguientePalabra(), i) : i);
+	}
+	
+	/*
+	private String toStringNodoPatron(NodoPatron n) {
+		return n.toString() + n.getSiguientePalabra()!=null ? toStringNodoPatron(n) : "";
+	}*/
 }

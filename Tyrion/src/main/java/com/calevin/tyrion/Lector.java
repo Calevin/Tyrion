@@ -18,7 +18,6 @@ import com.calevin.tyrion.entidad.Posicion;
 
 public class Lector {
 
-	private static int numeroPalabra = 0;
 	private Map<Posicion, Patron> patronesEncontrados = new HashMap<Posicion, Patron>();
 	private List<Patron> patrones = new ArrayList<Patron>();
 	private List<Palabra> palabras;
@@ -67,11 +66,10 @@ public class Lector {
 	public Posicion getPosicionInicialPatron(Palabra palabraFinal, Patron patron) {
 		
 		int indicePalabraFinal = 1+this.palabras.indexOf(palabraFinal);
-		int indicePalabraInicial = indicePalabraFinal-patron.getPalabrasDelPatron().size();
+		int indicePalabraInicial = indicePalabraFinal-patron.getLargoPatron();
 		
 		return this.palabras.get(indicePalabraInicial).getPosicion();
 	}
-	
 	
 	public List<Palabra> getPalabras() {
 		return palabras;
@@ -81,9 +79,6 @@ public class Lector {
 		this.palabras = palabras;
 	}
 	
-	public static int getNumeroPalabra() {
-		return numeroPalabra;
-	}
 	public List<Patron> getPatrones() {
 		return patrones;
 	}
@@ -93,9 +88,5 @@ public class Lector {
 	}
 	public Map<Posicion, Patron> getPatronesEncontrados() {
 		return patronesEncontrados;
-	}
-
-	public void setPatronesEncontrados(Map<Posicion, Patron> patronesEncontrados) {
-		this.patronesEncontrados = patronesEncontrados;
 	}
 }
