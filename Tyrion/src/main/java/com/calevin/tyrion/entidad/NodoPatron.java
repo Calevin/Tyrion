@@ -1,9 +1,9 @@
 package com.calevin.tyrion.entidad;
 
-public class NodoPatron {
+public abstract class NodoPatron {
 	private String valor;
-	private NodoPatron siguientePalabra;
-	private NodoPatron anteriorPalabra;
+	private NodoPatron siguienteNodo;
+	private NodoPatron anteriorNodo;
 	
 	public NodoPatron() {
 		super();
@@ -14,24 +14,17 @@ public class NodoPatron {
 		this.valor = valor;
 	}
 	
-	public boolean tieneMismoValor(Palabra other) {
-		if (this.valor == null) {
-			if (other.getValor() != null)
-				return false;
-		} else if (!this.valor.equals(other.getValor()))
-			return false;
-		return true;
-	}
+	abstract public boolean tieneMismoValor(Palabra other);
+		
+	public NodoPatron encadenarSiguiente(NodoPatron siguiente) {
+		this.setSiguienteNodo(siguiente);
+		this.getSiguienteNodo().setAnteriorNodo(this);
 
-	public NodoPatron encadenarSiguientePalabra(String siguientePalabra) {
-		this.siguientePalabra = new NodoPatron(siguientePalabra);
-		this.siguientePalabra.setAnteriorPalabra(this);
-		return this.siguientePalabra;
+		return this.getSiguienteNodo();
 	}
 
 	public NodoPatron anteriorSiExiste() {
-		return this.getAnteriorPalabra() != null 
-					? this.getAnteriorPalabra().anteriorSiExiste() : this;
+		return this.getAnteriorNodo() != null ? this.getAnteriorNodo().anteriorSiExiste() : this;
 	}
 	
 	public Patron componerPatron () {
@@ -46,21 +39,25 @@ public class NodoPatron {
 	public String getValor() {
 		return valor;
 	}
-	
-	public NodoPatron getSiguientePalabra() {
-		return siguientePalabra;
+
+	public NodoPatron getSiguienteNodo() {
+		return siguienteNodo;
 	}
 
-	public NodoPatron getAnteriorPalabra() {
-		return anteriorPalabra;
+	public void setSiguienteNodo(NodoPatron siguienteNodo) {
+		this.siguienteNodo = siguienteNodo;
 	}
 
-	public void setAnteriorPalabra(NodoPatron anteriorPalabra) {
-		this.anteriorPalabra = anteriorPalabra;
+	public NodoPatron getAnteriorNodo() {
+		return anteriorNodo;
+	}
+
+	public void setAnteriorNodo(NodoPatron anteriorNodo) {
+		this.anteriorNodo = anteriorNodo;
 	}
 	
 	@Override
 	public String toString() {
-		return "[valor=" + valor + (this.siguientePalabra!=null ? this.siguientePalabra.toString() : "") +  " ]";
+		return "[valor=" + valor + (this.siguienteNodo!=null ? this.siguienteNodo.toString() : "") +  "]";
 	}
 }

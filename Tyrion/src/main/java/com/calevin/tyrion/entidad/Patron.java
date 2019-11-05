@@ -21,7 +21,7 @@ public class Patron {
 		boolean resultadoEvaluacion = false;
 		
 		if (nodoActual.tieneMismoValor(palabraAevaluar)) {
-			nodoActual = nodoActual.getSiguientePalabra();
+			nodoActual = nodoActual.getSiguienteNodo();
 			resultadoEvaluacion = true;
 		} else {
 			this.nodoActual = patronCompuesto;
@@ -72,7 +72,7 @@ public class Patron {
 	
 	private int acumularNumeroPalabras (NodoPatron p, int i) {
 		i++;
-		return (p.getSiguientePalabra()!=null ? acumularNumeroPalabras(p.getSiguientePalabra(), i) : i);
+		return (p.getSiguienteNodo()!=null ? acumularNumeroPalabras(p.getSiguienteNodo(), i) : i);
 	}
 	
 	/*

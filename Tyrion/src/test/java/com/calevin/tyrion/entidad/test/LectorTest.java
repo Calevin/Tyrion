@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.calevin.tyrion.Lector;
+import com.calevin.tyrion.entidad.NodoObligatorioConstante;
 import com.calevin.tyrion.entidad.NodoPatron;
 import com.calevin.tyrion.entidad.Palabra;
 import com.calevin.tyrion.entidad.Patron;
@@ -33,9 +34,9 @@ public class LectorTest {
 	@Test
 	public void evaluarPatrones_ok() throws IOException {
 		Lector lector = new Lector("");
-		NodoPatron unoDosTres = new NodoPatron("uno")
-				.encadenarSiguientePalabra("dos")
-				.encadenarSiguientePalabra("tres");
+		NodoPatron unoDosTres = new NodoObligatorioConstante("uno")
+				.encadenarSiguiente(new NodoObligatorioConstante("dos"))
+				.encadenarSiguiente(new NodoObligatorioConstante("tres"));
 		
 		Patron patronUnoDosTres = unoDosTres.componerPatron();
 		
@@ -64,12 +65,13 @@ public class LectorTest {
 	@Test
 	public void evaluarPatrones_multiples_patrones_ok() throws IOException {
 		Lector lector = new Lector("");
-		NodoPatron unoDos = new NodoPatron("uno");
+		NodoObligatorioConstante unoDos = new NodoObligatorioConstante("uno");
 		
-		Patron patronUnoDos = unoDos.encadenarSiguientePalabra("dos").componerPatron();
+		Patron patronUnoDos = unoDos.encadenarSiguiente(new NodoObligatorioConstante("dos")).componerPatron();
 		
-		Patron patronUnoDosTres = new NodoPatron("uno").encadenarSiguientePalabra("dos")
-				.encadenarSiguientePalabra("tres")
+		Patron patronUnoDosTres = new NodoObligatorioConstante("uno")
+				.encadenarSiguiente(new NodoObligatorioConstante("dos"))
+				.encadenarSiguiente(new NodoObligatorioConstante("tres"))
 				.componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();
@@ -108,15 +110,16 @@ public class LectorTest {
 	@Test
 	public void getPosicionInicialPatron_ok() {
 		Lector lector = new Lector("");
-		NodoPatron unoDos = new NodoPatron("uno")
-				.encadenarSiguientePalabra("dos")
-				;
+		NodoPatron unoDos = new NodoObligatorioConstante("uno")
+				.encadenarSiguiente(new NodoObligatorioConstante("dos"));
 		
 		Patron patronUnoDos = unoDos.componerPatron();
 		
-		Patron patronUnoDosTres = unoDos.encadenarSiguientePalabra("tres").componerPatron();
+		Patron patronUnoDosTres = unoDos.encadenarSiguiente(new NodoObligatorioConstante("tres")).componerPatron();
 		
-		Patron patronDosTres = (new NodoPatron("dos").encadenarSiguientePalabra("tres")).componerPatron();
+		Patron patronDosTres = (new NodoObligatorioConstante("dos")
+				.encadenarSiguiente(new NodoObligatorioConstante("tres")))
+				.componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();
 		patrones.add(patronUnoDosTres);
