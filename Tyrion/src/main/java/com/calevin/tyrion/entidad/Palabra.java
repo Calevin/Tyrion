@@ -5,7 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Palabra implements Comparable<Palabra> {
+//public class Palabra implements Comparable<Palabra> {
+public class Palabra {
 	private String valor;
 	private Posicion posicion;
 
@@ -43,7 +44,7 @@ public class Palabra implements Comparable<Palabra> {
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
 	}
-
+/*
 	@Override
 	public int compareTo(Palabra o) {
 		return this.getPosicion().compareTo(o.getPosicion());
@@ -62,7 +63,7 @@ public class Palabra implements Comparable<Palabra> {
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
-
+*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
