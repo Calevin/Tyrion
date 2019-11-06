@@ -21,7 +21,7 @@ public class Patron {
 		boolean resultadoEvaluacion = false;
 		
 		if (nodoActual.tieneMismoValor(palabraAevaluar)) {
-			nodoActual = nodoActual.getSiguienteNodo();
+			nodoActual = nodoActual.getSiguienteNodoParaEvaluar();
 			resultadoEvaluacion = true;
 		} else {
 			this.nodoActual = patronCompuesto;

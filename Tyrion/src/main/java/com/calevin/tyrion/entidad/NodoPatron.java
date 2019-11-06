@@ -44,6 +44,10 @@ public abstract class NodoPatron {
 		return siguienteNodo;
 	}
 
+	public NodoPatron getSiguienteNodoParaEvaluar() {
+		return this.getSiguienteNodo();
+	}
+	
 	public void setSiguienteNodo(NodoPatron siguienteNodo) {
 		this.siguienteNodo = siguienteNodo;
 	}

@@ -49,7 +49,7 @@ public class Palabra {
 	public int compareTo(Palabra o) {
 		return this.getPosicion().compareTo(o.getPosicion());
 	}
-
+*/
 	@Override
 	public String toString() {
 		return "Palabra [valor=" + valor + ", posicion=" + posicion + "]";
@@ -63,7 +63,7 @@ public class Palabra {
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
-*/
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

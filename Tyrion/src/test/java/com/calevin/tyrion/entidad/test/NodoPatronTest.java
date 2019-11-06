@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.calevin.tyrion.entidad.NodoObligatorioConstante;
+import com.calevin.tyrion.entidad.NodoObligatorioVariable;
 import com.calevin.tyrion.entidad.NodoPatron;
 import com.calevin.tyrion.entidad.Palabra;
 import com.calevin.tyrion.entidad.Patron;
@@ -20,6 +21,19 @@ public class NodoPatronTest {
 		NodoPatron encadenado = uno.encadenarSiguiente(new NodoObligatorioConstante("dos"));
 		
 		assertTrue(encadenado.getValor().equalsIgnoreCase(dos.getValor()));
+	}
+	
+	@Test
+	public void encadenar_nodos_obligatorios_variables_ok() {
+		NodoObligatorioVariable uno = new NodoObligatorioVariable("[a]");
+		NodoObligatorioVariable dos = new NodoObligatorioVariable("[b]");
+		
+		NodoPatron encadenado = uno.encadenarSiguiente(new NodoObligatorioVariable("[b]"));
+		
+		assertTrue(encadenado.getValor().equalsIgnoreCase(dos.getValor()));
+		Palabra p = new Palabra();
+		p.setValor("b");
+		assertTrue(encadenado.tieneMismoValor(p) && dos.tieneMismoValor(p)); 
 	}
 	
 	@Test

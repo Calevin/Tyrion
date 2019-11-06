@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import com.calevin.tyrion.Lector;
 import com.calevin.tyrion.entidad.NodoObligatorioConstante;
+import com.calevin.tyrion.entidad.NodoObligatorioVariable;
+import com.calevin.tyrion.entidad.NodoOpcionalConstante;
 import com.calevin.tyrion.entidad.NodoPatron;
 import com.calevin.tyrion.entidad.Palabra;
 import com.calevin.tyrion.entidad.Patron;
@@ -32,7 +34,7 @@ public class LectorTest {
 	}
 	
 	@Test
-	public void evaluarPatrones_ok() throws IOException {
+	public void evaluar_patron_todo_constantes_ok() throws IOException {
 		Lector lector = new Lector("");
 		NodoPatron unoDosTres = new NodoObligatorioConstante("uno")
 				.encadenarSiguiente(new NodoObligatorioConstante("dos"))
@@ -53,6 +55,87 @@ public class LectorTest {
 		lector.evaluarPatrones();
 		
 		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		System.out.println("un Patron:");
+		lector.getPatronesEncontrados()
+		.entrySet()
+		.stream()
+		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
+		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
+		System.out.println("fin un Patron.");
+	}
+	
+	@Test
+	public void evaluar_patron_combinado_ok() {
+		Lector lector = new Lector("");
+		NodoPatron unoAlgoTres = new NodoObligatorioConstante("uno")
+				.encadenarSiguiente(new NodoObligatorioVariable("[b]"))
+				.encadenarSiguiente(new NodoObligatorioConstante("tres"));
+		
+		Patron patronUnoAlgoTres = unoAlgoTres.componerPatron();
+		
+		assertTrue(patronUnoAlgoTres.getLargoPatron()==3);
+		
+		lector.getPatrones().add(patronUnoAlgoTres);
+		
+		lector.setPalabras(Arrays.asList(
+				new Palabra("uno", new Posicion(1))
+				, new Palabra("b", new Posicion(2))
+				, new Palabra("tres", new Posicion(3))
+				));
+		
+		lector.evaluarPatrones();
+		
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoAlgoTres));
+		System.out.println("un Patron:");
+		lector.getPatronesEncontrados()
+		.entrySet()
+		.stream()
+		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
+		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
+		System.out.println("fin un Patron.");
+	}
+	
+	@Test
+	public void evaluar_patron_triple_combinado_ok() {
+		Lector lector = new Lector("");
+		Lector lector2 = new Lector("");
+		NodoPatron unoQuizasComaDos = new NodoObligatorioConstante("uno")
+				.encadenarSiguiente(new NodoOpcionalConstante(","))
+				.encadenarSiguiente(new NodoObligatorioConstante("dos"));
+		
+		Patron patronUnoQuizasComaDos = unoQuizasComaDos.componerPatron();
+		
+		assertTrue(patronUnoQuizasComaDos.getLargoPatron()==3);
+		
+		lector.getPatrones().add(patronUnoQuizasComaDos);
+		lector2.getPatrones().add(patronUnoQuizasComaDos);
+		
+		lector.setPalabras(Arrays.asList(
+				new Palabra("uno", new Posicion(1))
+				, new Palabra(",", new Posicion(2))
+				, new Palabra("dos", new Posicion(3))
+				));
+		
+		lector2.setPalabras(Arrays.asList(
+				new Palabra("uno", new Posicion(1))
+				, new Palabra("dos", new Posicion(2))
+				));
+		
+		lector.evaluarPatrones();
+		lector2.evaluarPatrones();
+		
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoQuizasComaDos));
+		System.out.println("un Patron:");
+		lector.getPatronesEncontrados()
+		.entrySet()
+		.stream()
+		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
+		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
+		System.out.println("fin un Patron.");
+		
+		System.out.println("***************** SEGUNDO CASO *****************");
+		
+		assertTrue(lector2.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoQuizasComaDos));
 		System.out.println("un Patron:");
 		lector.getPatronesEncontrados()
 		.entrySet()
