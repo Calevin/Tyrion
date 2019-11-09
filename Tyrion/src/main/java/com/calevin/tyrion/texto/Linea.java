@@ -1,4 +1,4 @@
-package com.calevin.tyrion.entidad;
+package com.calevin.tyrion.texto;
 
 import java.util.List;
 

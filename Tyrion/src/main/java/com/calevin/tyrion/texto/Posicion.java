@@ -1,4 +1,4 @@
-package com.calevin.tyrion.entidad;
+package com.calevin.tyrion.texto;
 
 public class Posicion implements Comparable<Posicion> {
 	private int linea;

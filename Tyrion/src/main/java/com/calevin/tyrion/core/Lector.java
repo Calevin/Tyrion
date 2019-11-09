@@ -1,4 +1,4 @@
-package com.calevin.tyrion;
+package com.calevin.tyrion.core;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,10 +11,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.calevin.tyrion.entidad.Linea;
-import com.calevin.tyrion.entidad.Palabra;
-import com.calevin.tyrion.entidad.Patron;
-import com.calevin.tyrion.entidad.Posicion;
+import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.texto.Linea;
+import com.calevin.tyrion.texto.Palabra;
+import com.calevin.tyrion.texto.Posicion;
 
 public class Lector {
 

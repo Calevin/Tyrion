@@ -1,4 +1,7 @@
-package com.calevin.tyrion.entidad;
+package com.calevin.tyrion.patron.nodo;
+
+import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.texto.Palabra;
 
 public abstract class NodoPatron {
 	private String valor;

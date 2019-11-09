@@ -1,10 +1,10 @@
-package com.calevin.tyrion.entidad.test;
+package com.calevin.tyrion.test.texto;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.calevin.tyrion.entidad.Posicion;
+import com.calevin.tyrion.texto.Posicion;
 
 public class PosicionTest {
 	@Test

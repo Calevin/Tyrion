@@ -1,4 +1,4 @@
-package com.calevin.tyrion.entidad.test;
+package com.calevin.tyrion.test.core;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,14 +9,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.calevin.tyrion.Lector;
-import com.calevin.tyrion.entidad.NodoObligatorioConstante;
-import com.calevin.tyrion.entidad.NodoObligatorioVariable;
-import com.calevin.tyrion.entidad.NodoOpcionalConstante;
-import com.calevin.tyrion.entidad.NodoPatron;
-import com.calevin.tyrion.entidad.Palabra;
-import com.calevin.tyrion.entidad.Patron;
-import com.calevin.tyrion.entidad.Posicion;
+import com.calevin.tyrion.core.Lector;
+import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.patron.nodo.NodoPatron;
+import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
+import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioVariable;
+import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
+import com.calevin.tyrion.texto.Palabra;
+import com.calevin.tyrion.texto.Posicion;
 
 public class LectorTest {
 
@@ -36,9 +36,9 @@ public class LectorTest {
 	@Test
 	public void evaluar_patron_todo_constantes_ok() throws IOException {
 		Lector lector = new Lector("");
-		NodoPatron unoDosTres = new NodoObligatorioConstante("uno")
-				.encadenarSiguiente(new NodoObligatorioConstante("dos"))
-				.encadenarSiguiente(new NodoObligatorioConstante("tres"));
+		NodoPatron unoDosTres = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new ObligatorioConstante("dos"))
+				.encadenarSiguiente(new ObligatorioConstante("tres"));
 		
 		Patron patronUnoDosTres = unoDosTres.componerPatron();
 		
@@ -67,9 +67,9 @@ public class LectorTest {
 	@Test
 	public void evaluar_patron_combinado_ok() {
 		Lector lector = new Lector("");
-		NodoPatron unoAlgoTres = new NodoObligatorioConstante("uno")
-				.encadenarSiguiente(new NodoObligatorioVariable("[b]"))
-				.encadenarSiguiente(new NodoObligatorioConstante("tres"));
+		NodoPatron unoAlgoTres = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new ObligatorioVariable("[b]"))
+				.encadenarSiguiente(new ObligatorioConstante("tres"));
 		
 		Patron patronUnoAlgoTres = unoAlgoTres.componerPatron();
 		
@@ -99,9 +99,9 @@ public class LectorTest {
 	public void evaluar_patron_triple_combinado_ok() {
 		Lector lector = new Lector("");
 		Lector lector2 = new Lector("");
-		NodoPatron unoQuizasComaDos = new NodoObligatorioConstante("uno")
-				.encadenarSiguiente(new NodoOpcionalConstante(","))
-				.encadenarSiguiente(new NodoObligatorioConstante("dos"));
+		NodoPatron unoQuizasComaDos = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new OpcionalConstante(","))
+				.encadenarSiguiente(new ObligatorioConstante("dos"));
 		
 		Patron patronUnoQuizasComaDos = unoQuizasComaDos.componerPatron();
 		
@@ -148,13 +148,13 @@ public class LectorTest {
 	@Test
 	public void evaluarPatrones_multiples_patrones_ok() throws IOException {
 		Lector lector = new Lector("");
-		NodoObligatorioConstante unoDos = new NodoObligatorioConstante("uno");
+		ObligatorioConstante unoDos = new ObligatorioConstante("uno");
 		
-		Patron patronUnoDos = unoDos.encadenarSiguiente(new NodoObligatorioConstante("dos")).componerPatron();
+		Patron patronUnoDos = unoDos.encadenarSiguiente(new ObligatorioConstante("dos")).componerPatron();
 		
-		Patron patronUnoDosTres = new NodoObligatorioConstante("uno")
-				.encadenarSiguiente(new NodoObligatorioConstante("dos"))
-				.encadenarSiguiente(new NodoObligatorioConstante("tres"))
+		Patron patronUnoDosTres = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new ObligatorioConstante("dos"))
+				.encadenarSiguiente(new ObligatorioConstante("tres"))
 				.componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();
@@ -193,15 +193,15 @@ public class LectorTest {
 	@Test
 	public void getPosicionInicialPatron_ok() {
 		Lector lector = new Lector("");
-		NodoPatron unoDos = new NodoObligatorioConstante("uno")
-				.encadenarSiguiente(new NodoObligatorioConstante("dos"));
+		NodoPatron unoDos = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new ObligatorioConstante("dos"));
 		
 		Patron patronUnoDos = unoDos.componerPatron();
 		
-		Patron patronUnoDosTres = unoDos.encadenarSiguiente(new NodoObligatorioConstante("tres")).componerPatron();
+		Patron patronUnoDosTres = unoDos.encadenarSiguiente(new ObligatorioConstante("tres")).componerPatron();
 		
-		Patron patronDosTres = (new NodoObligatorioConstante("dos")
-				.encadenarSiguiente(new NodoObligatorioConstante("tres")))
+		Patron patronDosTres = (new ObligatorioConstante("dos")
+				.encadenarSiguiente(new ObligatorioConstante("tres")))
 				.componerPatron();
 		
 		List<Patron> patrones = new ArrayList<Patron>();

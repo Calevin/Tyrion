@@ -1,8 +1,11 @@
-package com.calevin.tyrion.entidad;
+package com.calevin.tyrion.patron.nodo.obligatorio;
 
-public class NodoObligatorioConstante extends NodoPatron {
+import com.calevin.tyrion.patron.nodo.NodoPatron;
+import com.calevin.tyrion.texto.Palabra;
 
-	public NodoObligatorioConstante(String valor) {
+public class ObligatorioConstante extends NodoPatron {
+	
+	public ObligatorioConstante(String valor) {
 		this.setValor(valor);
 	}
 

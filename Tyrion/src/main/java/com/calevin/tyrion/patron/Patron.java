@@ -1,4 +1,7 @@
-package com.calevin.tyrion.entidad;
+package com.calevin.tyrion.patron;
+
+import com.calevin.tyrion.patron.nodo.NodoPatron;
+import com.calevin.tyrion.texto.Palabra;
 
 public class Patron {
 	final private NodoPatron patronCompuesto;
