@@ -14,6 +14,11 @@ public class Palabra {
 		super();
 	}
 
+	public Palabra(String valor) {
+		super();
+		this.valor = valor;		
+	}
+	
 	public Palabra(String valor, Posicion posicion) {
 		super();
 		this.valor = valor;
