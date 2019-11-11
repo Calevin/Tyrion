@@ -71,6 +71,16 @@ public class Lector {
 		return this.palabras.get(indicePalabraInicial).getPosicion();
 	}
 	
+	public void imprimirPatronesEncontrados() {
+		System.out.println("Inicio Patrones Encontrados:");
+		this.getPatronesEncontrados()
+		.entrySet()
+		.stream()
+		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
+		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
+		System.out.println("fin Patrones Encontrados.");
+	}
+	
 	public List<Palabra> getPalabras() {
 		return palabras;
 	}
