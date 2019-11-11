@@ -10,7 +10,7 @@ public class OpcionalVariable extends Opcional{
 	Pattern pattern;
 	
 	public OpcionalVariable(String pattern) {
-		this.setValor(pattern);
+		super(pattern);
 		this.pattern = Pattern.compile(pattern);
 	}
 	

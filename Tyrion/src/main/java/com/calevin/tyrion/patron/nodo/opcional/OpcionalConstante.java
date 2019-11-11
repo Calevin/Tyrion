@@ -6,7 +6,7 @@ import com.calevin.tyrion.texto.Palabra;
 public class OpcionalConstante extends Opcional {
 	
 	public OpcionalConstante(String valor) {
-		this.setValor(valor);
+		super(valor);
 	}
 	
 	@Override
