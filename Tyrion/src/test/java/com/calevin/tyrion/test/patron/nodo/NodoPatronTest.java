@@ -36,6 +36,7 @@ public class NodoPatronTest {
 		assertTrue(encadenado.tieneMismoValor(p) && dos.tieneMismoValor(p)); 
 	}
 	
+	
 	@Test
 	public void anteriorSiExiste_ok() {
 		ObligatorioConstante uno = new ObligatorioConstante("uno");
@@ -55,14 +56,12 @@ public class NodoPatronTest {
 		
 		assertTrue(patronCompuesto.getLargoPatron()==4);
 	}
-	
+		
 	@Test
 	public void tieneMismoValor_caso_afirmativa() {
 		NodoPatron nodoPatron = new ObligatorioConstante(null);
 		Palabra p2 = new Palabra();
-		
-		assertTrue(nodoPatron.tieneMismoValor(p2));
-		
+				
 		nodoPatron.setValor("test");
 		p2.setValor("test");
 		
@@ -76,9 +75,6 @@ public class NodoPatronTest {
 		Palabra p2 = new Palabra();
 		
 		p2.setValor("notest");
-		
-		assertTrue(!nodoPatron.tieneMismoValor(p2));
-		
 		nodoPatron.setValor("test");
 		
 		assertTrue(!nodoPatron.tieneMismoValor(p2));

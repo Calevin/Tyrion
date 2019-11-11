@@ -11,11 +11,6 @@ public class ObligatorioConstante extends NodoPatron {
 
 	@Override
 	public boolean tieneMismoValor(Palabra other) {
-		if (this.getValor() == null) {
-			if (other.getValor() != null)
-				return false;
-		} else if (!this.getValor().equals(other.getValor()))
-			return false;
-		return true;
+		return this.getValor().equals(other.getValor());
 	}
 }
