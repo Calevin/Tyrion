@@ -13,7 +13,7 @@ import com.calevin.tyrion.texto.Palabra;
 public class NodoPatronTest {
 
 	@Test
-	public void encadenar_ok() {
+	public void encadenar_nodos_obligatorios_constante() {
 	
 		ObligatorioConstante uno = new ObligatorioConstante("uno");
 		ObligatorioConstante dos = new ObligatorioConstante("dos");
@@ -24,7 +24,7 @@ public class NodoPatronTest {
 	}
 	
 	@Test
-	public void encadenar_nodos_obligatorios_variables_ok() {
+	public void encadenar_nodos_obligatorios_variable() {
 		ObligatorioVariable uno = new ObligatorioVariable("[a]");
 		ObligatorioVariable dos = new ObligatorioVariable("[b]");
 		
