@@ -20,7 +20,7 @@ public class OpcionalVariable extends Opcional{
 		if (matcher.find()) {
 			return true;
 		} else {
-			return this.getSiguienteNodo().tieneMismoValor(other);
+			return super.tieneMismoValor(other);
 		}
 	}
 }

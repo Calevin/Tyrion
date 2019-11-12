@@ -72,6 +72,7 @@ public class Lector {
 	}
 	
 	public void imprimirPatronesEncontrados() {
+		System.out.println("********************************************************");
 		System.out.println("Inicio Patrones Encontrados:");
 		this.getPatronesEncontrados()
 		.entrySet()
@@ -79,6 +80,7 @@ public class Lector {
 		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
 		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
 		System.out.println("fin Patrones Encontrados.");
+		System.out.println("********************************************************");
 	}
 	
 	public List<Palabra> getPalabras() {

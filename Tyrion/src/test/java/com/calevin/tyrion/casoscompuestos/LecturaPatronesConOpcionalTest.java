@@ -2,28 +2,29 @@ package com.calevin.tyrion.casoscompuestos;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.calevin.tyrion.core.Lector;
 import com.calevin.tyrion.patron.Patron;
 import com.calevin.tyrion.patron.nodo.NodoPatron;
-import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
-import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioVariable;
-import static com.calevin.tyrion.test.patron.nodo.obligatorio.ObligatorioVariableTest.*;
+import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
+import com.calevin.tyrion.patron.nodo.opcional.OpcionalVariable;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
 
-public class LecturaPatronesConObligatoriosTest {
+import static com.calevin.tyrion.test.patron.nodo.obligatorio.ObligatorioVariableTest.*;
+
+import java.util.Arrays;
+
+public class LecturaPatronesConOpcionalTest {
 	private String regexLetraMayuscula = "[A-Z]";
-	
+
 	@Test
-	public void evaluar_patron_tres_obligatorios_constante_ok() {
+	public void evaluar_patron_tres_opcionales_constante_ok() {
 		Lector lector = new Lector("");
-		NodoPatron unoDosTres = new ObligatorioConstante("uno")
-				.encadenarSiguiente(new ObligatorioConstante("dos"))
-				.encadenarSiguiente(new ObligatorioConstante("tres"));
+		NodoPatron unoDosTres = new OpcionalConstante("optuno")
+				.encadenarSiguiente(new OpcionalConstante("optdos"))
+				.encadenarSiguiente(new OpcionalConstante("opttres"));
 		
 		Patron patronUnoDosTres = unoDosTres.componerPatron();
 		
@@ -32,25 +33,25 @@ public class LecturaPatronesConObligatoriosTest {
 		lector.getPatrones().add(patronUnoDosTres);
 		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("uno", new Posicion(1))
-				, new Palabra("dos", new Posicion(2))
-				, new Palabra("tres", new Posicion(3))
+				new Palabra("optuno", new Posicion(1))
+				, new Palabra("optdos", new Posicion(2))
+				, new Palabra("opttres", new Posicion(3))
 				));
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDosTres));
 		
 		lector.imprimirPatronesEncontrados();
 	}
 	
 	@Test
-	public void evaluar_patron_tres_obligatorios_variables_ok() {
+	public void evaluar_patron_tres_opcionales_variables_ok() {
 		
 		Lector lector = new Lector("");
-		NodoPatron unoDosTres = new ObligatorioVariable(regexLetraMayuscula)
-				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula))
-				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula));
+		NodoPatron unoDosTres = new OpcionalVariable(regexLetraMayuscula)
+				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula))
+				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula));
 		
 		Patron patronUnoDosTres = unoDosTres.componerPatron();
 		
@@ -66,17 +67,17 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDosTres));
 		
 		lector.imprimirPatronesEncontrados();
 	}
 	
 	@Test
-	public void evaluar_patron_obligatorios_constante_variable_constante() {
+	public void evaluar_patron_opcionales_constante_variable_constante() {
 		Lector lector = new Lector("");
-		NodoPatron unoAlgoTres = new ObligatorioConstante("uno")
-				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula))
-				.encadenarSiguiente(new ObligatorioConstante("tres"));
+		NodoPatron unoAlgoTres = new OpcionalConstante("uno")
+				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula))
+				.encadenarSiguiente(new OpcionalConstante("tres"));
 		
 		Patron patronUnoAlgoTres = unoAlgoTres.componerPatron();
 		
@@ -92,17 +93,17 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoAlgoTres));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoAlgoTres));
 		
 		lector.imprimirPatronesEncontrados(); 
 	}
 	
 	@Test
-	public void evaluar_patron_obligatorios_variable_constante_variable() {
+	public void evaluar_patron_opcionales_variable_constante_variable() {
 		Lector lector = new Lector("");
-		NodoPatron algoDosAlgo = new ObligatorioVariable(regexLetraMayuscula)
-				.encadenarSiguiente(new ObligatorioConstante("dos"))
-				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula));
+		NodoPatron algoDosAlgo = new OpcionalVariable(regexLetraMayuscula)
+				.encadenarSiguiente(new OpcionalConstante("dos"))
+				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula));
 		
 		Patron patronAlgoDosAlgo = algoDosAlgo.componerPatron();
 		
@@ -118,8 +119,8 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronAlgoDosAlgo));
+		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronAlgoDosAlgo));
 		
 		lector.imprimirPatronesEncontrados(); 
-	}
+	}	
 }

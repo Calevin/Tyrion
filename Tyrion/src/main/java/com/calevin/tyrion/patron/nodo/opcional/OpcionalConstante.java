@@ -15,7 +15,7 @@ public class OpcionalConstante extends Opcional {
 		if(this.getValor().equals(other.getValor())) {
 			return true;
 		} else {
-			return this.getSiguienteNodo().tieneMismoValor(other);
+			return super.tieneMismoValor(other);
 		}
 	}
 }
