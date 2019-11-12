@@ -12,13 +12,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.patron.PatronEncontrado;
 import com.calevin.tyrion.texto.Linea;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
 
 public class Lector {
 
-	private Map<Posicion, Patron> patronesEncontrados = new HashMap<Posicion, Patron>();
+	//private Map<Posicion, Patron> patronesEncontrados = new HashMap<Posicion, Patron>();
+	private List<PatronEncontrado> patronesEncontrados = new ArrayList<PatronEncontrado>();
 	private List<Patron> patrones = new ArrayList<Patron>();
 	private List<Palabra> palabras;
 	private String archivo;
@@ -59,7 +61,8 @@ public class Lector {
 		if (patron.evaluar(palabra) 
 				&& patron.patronEncontrado()) {
 			
-			this.patronesEncontrados.put(palabra.getPosicion(), patron);
+			this.patronesEncontrados.add(new PatronEncontrado(patron, patron.getPosicionInicial()));
+			patron.resetPatron();
 		}
 	}
 	
@@ -75,10 +78,7 @@ public class Lector {
 		System.out.println("********************************************************");
 		System.out.println("Inicio Patrones Encontrados:");
 		this.getPatronesEncontrados()
-		.entrySet()
-		.stream()
-		.sorted((pe1, pe2) -> pe1.getKey().compareTo(pe2.getKey())) 
-		.forEach(pe -> System.out.println(pe.getKey() + "\n" + pe.getValue() + "\n"));
+		.forEach(pe -> System.out.println(pe.getPosicionEncontrado()  + "\n" + pe.getPatron() + "\n"));
 		System.out.println("fin Patrones Encontrados.");
 		System.out.println("********************************************************");
 	}
@@ -98,7 +98,7 @@ public class Lector {
 	public void setPatrones(List<Patron> patrones) {
 		this.patrones = patrones;
 	}
-	public Map<Posicion, Patron> getPatronesEncontrados() {
+	public List<PatronEncontrado> getPatronesEncontrados() {
 		return patronesEncontrados;
 	}
 }
