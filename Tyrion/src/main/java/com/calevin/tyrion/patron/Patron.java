@@ -12,7 +12,14 @@ public class Patron {
 		super();
 		this.patronCompuesto = palabrasNodo;
 		this.nodoActual = patronCompuesto;
-		this.largoPatron = getLargoPatron();
+		this.setLargoPatron(1);
+	}	
+	
+	public Patron(NodoPatron palabrasNodo, int largoPatron) {
+		super();
+		this.patronCompuesto = palabrasNodo;
+		this.nodoActual = patronCompuesto;
+		this.setLargoPatron(largoPatron);
 	}
 	
 	public boolean evaluar(Palabra p) {
@@ -45,41 +52,17 @@ public class Patron {
 			return false;
 		}
 	}
-	/*
-	public boolean comprobrarPatron(List<Palabra> palabrasAcomprobar) {
-		int limitePatron = patron.size();
-		
-		for(int i = 0; i < limitePatron; i++){
-			if(!palabrasAcomprobar.get(i).getValor()
-					.equals(patron.get(i).getValor())) {
-				return false;
-			}
-		}
-		
-		return true;
-	}*/
-	
-	@Override
-	public String toString() {
-		//patronList.stream().map(s -> s.toString() + "\n").forEach(System.out::println);
-		return "Patron [ patron=" + patronCompuesto.toString() + "]";
-	}
 	
 	public int getLargoPatron() {
-		if (this.largoPatron==-1) {
-			this.largoPatron = acumularNumeroPalabras(patronCompuesto, 0);
-		}
-		
-		return this.largoPatron; 
+		return largoPatron;
 	}
-	
-	private int acumularNumeroPalabras (NodoPatron p, int i) {
-		i++;
-		return (p.getSiguienteNodo()!=null ? acumularNumeroPalabras(p.getSiguienteNodo(), i) : i);
+
+	public void setLargoPatron(int largoPatron) {
+		this.largoPatron = largoPatron;
 	}
-	
-	/*
-	private String toStringNodoPatron(NodoPatron n) {
-		return n.toString() + n.getSiguientePalabra()!=null ? toStringNodoPatron(n) : "";
-	}*/
+
+	@Override
+	public String toString() {
+		return "Patron [ patron=" + patronCompuesto.toString() + "]";
+	}
 }

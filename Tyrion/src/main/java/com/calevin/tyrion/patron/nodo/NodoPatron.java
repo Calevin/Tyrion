@@ -11,7 +11,7 @@ public abstract class NodoPatron {
 	public NodoPatron() {
 		super();
 	}
-
+	
 	public NodoPatron(String valor) {
 		super();
 		this.valor = valor;
@@ -32,7 +32,17 @@ public abstract class NodoPatron {
 	
 	public Patron componerPatron () {
 		NodoPatron inicial = anteriorSiExiste();
-		return new Patron(inicial);
+		int cantidad = contadorSiguientes(inicial, 0);
+		return new Patron(inicial, cantidad);
+	}
+	
+	public int nodosAcontinuacion() {
+		return contadorSiguientes(this, 0);
+	}
+	
+	private int contadorSiguientes (NodoPatron p, int i) {
+		i++;
+		return (p.siguienteNodo !=null ? contadorSiguientes(p.siguienteNodo, i) : i);		
 	}
 	
 	public void setValor(String valor) {
@@ -47,6 +57,7 @@ public abstract class NodoPatron {
 		return siguienteNodo;
 	}
 
+	
 	public NodoPatron getSiguienteNodoParaEvaluar() {
 		return this.getSiguienteNodo();
 	}
