@@ -2,11 +2,13 @@ package com.calevin.tyrion.patron;
 
 import com.calevin.tyrion.patron.nodo.NodoPatron;
 import com.calevin.tyrion.texto.Palabra;
+import com.calevin.tyrion.texto.Posicion;
 
 public class Patron {
 	final private NodoPatron patronCompuesto;
 	private NodoPatron nodoActual;
 	private int largoPatron = -1;
+	private Posicion posicionInicial;
 	
 	public Patron(NodoPatron palabrasNodo) {
 		super();
@@ -31,10 +33,14 @@ public class Patron {
 		boolean resultadoEvaluacion = false;
 		
 		if (nodoActual.tieneMismoValor(palabraAevaluar)) {
+			if(nodoActual.equals(patronCompuesto)) {
+				this.posicionInicial = palabraAevaluar.getPosicion();
+			}
 			nodoActual = nodoActual.getSiguienteNodoParaEvaluar();
 			resultadoEvaluacion = true;
 		} else {
-			this.nodoActual = patronCompuesto;
+			this.resetPatron();
+			
 			if (!reicidente) {
 				reicidente=true;
 				resultadoEvaluacion = this.evaluar(palabraAevaluar,reicidente);
@@ -45,12 +51,12 @@ public class Patron {
 	}
 	
 	public boolean patronEncontrado() {
-		if(nodoActual==null) {
-			this.nodoActual=this.patronCompuesto;
-			return true;
-		} else {
-			return false;
-		}
+		return nodoActual==null;
+	}
+	
+	public void resetPatron() {
+		this.nodoActual = this.patronCompuesto;
+		this.posicionInicial = null;
 	}
 	
 	public int getLargoPatron() {
@@ -61,6 +67,10 @@ public class Patron {
 		this.largoPatron = largoPatron;
 	}
 
+	public Posicion getPosicionInicial() {
+		return posicionInicial;
+	}
+	
 	@Override
 	public String toString() {
 		return "Patron [ patron=" + patronCompuesto.toString() + "]";

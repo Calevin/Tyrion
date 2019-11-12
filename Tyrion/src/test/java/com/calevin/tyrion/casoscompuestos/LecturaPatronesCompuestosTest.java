@@ -2,7 +2,6 @@ package com.calevin.tyrion.casoscompuestos;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.junit.Test;
 
 import com.calevin.tyrion.core.Lector;
 import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.patron.PatronEncontrado;
 import com.calevin.tyrion.patron.nodo.NodoPatron;
 import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
 import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
@@ -40,8 +40,10 @@ public class LecturaPatronesCompuestosTest {
 				));
 		
 		lector.evaluarPatrones();
-				
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoQuizasComaDos));
+
+		PatronEncontrado patronUnoQuizasComaDosEncontrado = new PatronEncontrado(patronUnoQuizasComaDos, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoQuizasComaDosEncontrado));
 
 		System.out.println("Leyendo: " + lector.getPalabras());
 		
@@ -56,7 +58,7 @@ public class LecturaPatronesCompuestosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoQuizasComaDos));
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoQuizasComaDosEncontrado));
 		
 		System.out.println("Leyendo: " + lector.getPalabras());
 		
@@ -64,7 +66,7 @@ public class LecturaPatronesCompuestosTest {
 	}
 	
 	@Test
-	public void encontrando_dos_patrones_obligatorio_constante() throws IOException {
+	public void encontrando_dos_patrones_obligatorio_constante() {
 		Lector lector = new Lector("");
 		ObligatorioConstante unoDos = new ObligatorioConstante("uno");
 		
@@ -89,9 +91,12 @@ public class LecturaPatronesCompuestosTest {
 				));
 
 		lector.evaluarPatrones();
+		Posicion unoUno = new Posicion(1, 1);
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, unoUno);
+		PatronEncontrado patronUnoDosEncontrado = new PatronEncontrado(patronUnoDos, unoUno);
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDos));
+		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosTresEncontrado));
+		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosEncontrado));
 		
 		System.out.println("Multiples patrones:");
 		lector.imprimirPatronesEncontrados();

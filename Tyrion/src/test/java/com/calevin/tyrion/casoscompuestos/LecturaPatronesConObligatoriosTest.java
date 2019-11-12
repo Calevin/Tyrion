@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.calevin.tyrion.core.Lector;
 import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.patron.PatronEncontrado;
 import com.calevin.tyrion.patron.nodo.NodoPatron;
 import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
 import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioVariable;
@@ -39,7 +40,9 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados();
 	}
@@ -66,7 +69,9 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoDosTres));
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados();
 	}
@@ -92,7 +97,9 @@ public class LecturaPatronesConObligatoriosTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronUnoAlgoTres));
+		PatronEncontrado patronUnoAlgoTresEncontrado = new PatronEncontrado(patronUnoAlgoTres, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoAlgoTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados(); 
 	}
@@ -117,8 +124,10 @@ public class LecturaPatronesConObligatoriosTest {
 				));
 		
 		lector.evaluarPatrones();
+
+		PatronEncontrado patronAlgoDosAlgoEncontrado = new PatronEncontrado(patronAlgoDosAlgo, new Posicion(1, 1));
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 3)).equals(patronAlgoDosAlgo));
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronAlgoDosAlgoEncontrado));
 		
 		lector.imprimirPatronesEncontrados(); 
 	}

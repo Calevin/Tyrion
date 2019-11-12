@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.calevin.tyrion.core.Lector;
 import com.calevin.tyrion.patron.Patron;
+import com.calevin.tyrion.patron.PatronEncontrado;
 import com.calevin.tyrion.patron.nodo.NodoPatron;
 import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
 import com.calevin.tyrion.patron.nodo.opcional.OpcionalVariable;
@@ -40,7 +41,9 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDosTres));
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados();
 	}
@@ -66,8 +69,10 @@ public class LecturaPatronesConOpcionalTest {
 				));
 		
 		lector.evaluarPatrones();
+
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoDosTres));
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados();
 	}
@@ -93,7 +98,9 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronUnoAlgoTres));
+		PatronEncontrado patronUnoAlgoTresEncontrado = new PatronEncontrado(patronUnoAlgoTres, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoAlgoTresEncontrado));
 		
 		lector.imprimirPatronesEncontrados(); 
 	}
@@ -119,7 +126,9 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.evaluarPatrones();
 		
-		assertTrue(lector.getPatronesEncontrados().get(new Posicion(1, 2)).equals(patronAlgoDosAlgo));
+		PatronEncontrado patronAlgoDosAlgoEncontrado = new PatronEncontrado(patronAlgoDosAlgo, new Posicion(1, 1));
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronAlgoDosAlgoEncontrado));
 		
 		lector.imprimirPatronesEncontrados(); 
 	}	
