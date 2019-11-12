@@ -19,7 +19,6 @@ import com.calevin.tyrion.texto.Posicion;
 
 public class Lector {
 
-	//private Map<Posicion, Patron> patronesEncontrados = new HashMap<Posicion, Patron>();
 	private List<PatronEncontrado> patronesEncontrados = new ArrayList<PatronEncontrado>();
 	private List<Patron> patrones = new ArrayList<Patron>();
 	private List<Palabra> palabras;
@@ -78,7 +77,9 @@ public class Lector {
 		System.out.println("********************************************************");
 		System.out.println("Inicio Patrones Encontrados:");
 		this.getPatronesEncontrados()
-		.forEach(pe -> System.out.println(pe.getPosicionEncontrado()  + "\n" + pe.getPatron() + "\n"));
+		.forEach(pe -> { 
+				System.out.println(pe.getPosicionEncontrado()  + "\n" + pe.getPatron() + "\n");
+			});
 		System.out.println("fin Patrones Encontrados.");
 		System.out.println("********************************************************");
 	}

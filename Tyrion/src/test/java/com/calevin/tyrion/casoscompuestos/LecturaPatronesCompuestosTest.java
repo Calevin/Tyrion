@@ -66,7 +66,7 @@ public class LecturaPatronesCompuestosTest {
 	}
 	
 	@Test
-	public void encontrando_dos_patrones_obligatorio_constante() {
+	public void encontrando_dos_patrones_obligatorio_constante_mismo_inicio() {
 		Lector lector = new Lector("");
 		ObligatorioConstante unoDos = new ObligatorioConstante("uno");
 		
@@ -97,6 +97,47 @@ public class LecturaPatronesCompuestosTest {
 		
 		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosTresEncontrado));
 		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosEncontrado));
+		
+		System.out.println("Multiples patrones:");
+		lector.imprimirPatronesEncontrados();
+		System.out.println("Fin multiples patrones.");
+	}
+	
+	@Test
+	public void encontrando_dos_patrones_obligatorio_constante_distinto_inicio() {
+		Lector lector = new Lector("");
+		
+		Patron patronUnoDos = new ObligatorioConstante("uno")
+				.encadenarSiguiente(new ObligatorioConstante("dos"))
+				.componerPatron();
+		
+		Patron patronDosTres = new ObligatorioConstante("dos")
+				.encadenarSiguiente(new ObligatorioConstante("tres"))
+				.componerPatron();
+		
+		List<Patron> patrones = new ArrayList<Patron>();
+		
+		patrones.add(patronUnoDos);
+		patrones.add(patronDosTres);
+		
+		lector.setPatrones(patrones);
+		
+		lector.setPalabras(Arrays.asList(
+				new Palabra("uno", new Posicion(1))
+				, new Palabra("dos", new Posicion(2))
+				, new Palabra("tres", new Posicion(3))
+				));
+
+		lector.evaluarPatrones();
+		
+		Posicion unoUno = new Posicion(1, 1);
+		Posicion unoDos = new Posicion(1, 2);
+		
+		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDos, unoUno);
+		PatronEncontrado patronUnoDosEncontrado = new PatronEncontrado(patronDosTres, unoDos);
+		
+		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
+		assertTrue(lector.getPatronesEncontrados().get(1).equals(patronUnoDosEncontrado));
 		
 		System.out.println("Multiples patrones:");
 		lector.imprimirPatronesEncontrados();
