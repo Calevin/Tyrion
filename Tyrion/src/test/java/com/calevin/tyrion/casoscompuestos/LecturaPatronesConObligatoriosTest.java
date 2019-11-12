@@ -20,7 +20,7 @@ public class LecturaPatronesConObligatoriosTest {
 	private String regexLetraMayuscula = "[A-Z]";
 	
 	@Test
-	public void evaluar_patron_tres_obligatorios_constante_ok() throws IOException {
+	public void evaluar_patron_tres_obligatorios_constante_ok() {
 		Lector lector = new Lector("");
 		NodoPatron unoDosTres = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new ObligatorioConstante("dos"))
@@ -46,7 +46,7 @@ public class LecturaPatronesConObligatoriosTest {
 	}
 	
 	@Test
-	public void evaluar_patron_tres_obligatorios_variables_ok() throws IOException {
+	public void evaluar_patron_tres_obligatorios_variables_ok() {
 		
 		Lector lector = new Lector("");
 		NodoPatron unoDosTres = new ObligatorioVariable(regexLetraMayuscula)
