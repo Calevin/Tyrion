@@ -18,10 +18,10 @@ public class PalabraTest {
 		List<Palabra> listaAcomprobar = new ArrayList<Palabra>();
 		Palabra palabra = new Palabra();
 		palabra.setValor("primero");
-		palabra.setPosicion(new Posicion(1, 1));
+		palabra.setPosicion(new Posicion(1, 0));
 		listaAcomprobar.add(palabra);
-		listaAcomprobar.add(new Palabra("segunda", new Posicion(1, 2)));
-		listaAcomprobar.add(new Palabra("tercero", new Posicion(1, 3)));
+		listaAcomprobar.add(new Palabra("segunda", new Posicion(1, 1)));
+		listaAcomprobar.add(new Palabra("tercero", new Posicion(1, 2)));
 		
 		List<Palabra> lista = Palabra.toListaDePalabras("primero segunda tercero", 1);
 		

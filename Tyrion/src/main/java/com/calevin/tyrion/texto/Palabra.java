@@ -5,8 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-//public class Palabra implements Comparable<Palabra> {
-public class Palabra {
+public class Palabra implements Comparable<Palabra> {
 	private String valor;
 	private Posicion posicion;
 
@@ -49,12 +48,12 @@ public class Palabra {
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
 	}
-/*
+	
 	@Override
 	public int compareTo(Palabra o) {
 		return this.getPosicion().compareTo(o.getPosicion());
 	}
-*/
+	
 	@Override
 	public String toString() {
 		return "Palabra [valor=" + valor + ", posicion=" + posicion + "]";
@@ -92,7 +91,7 @@ public class Palabra {
 	}
 
 	public static List<Palabra> toListaDePalabras(String oracion, int indiceLinea) {
-		AtomicInteger indicePosicion = new AtomicInteger(0);
+		AtomicInteger indicePosicion = new AtomicInteger(-1);
 		return Pattern.compile(" ")
 				.splitAsStream(oracion)
 				.map(s -> {

@@ -22,6 +22,7 @@ public class Lector {
 	private List<PatronEncontrado> patronesEncontrados = new ArrayList<PatronEncontrado>();
 	private List<Patron> patrones = new ArrayList<Patron>();
 	private List<Palabra> palabras;
+	private List<Linea> lineasDelTexto;
 	private String archivo;
 	
 	public Lector(String archivo) {
@@ -30,20 +31,28 @@ public class Lector {
 	}
 
 	public void cargarArchivo() throws IOException {
-		AtomicInteger indiceLinea = new AtomicInteger(0);
+		AtomicInteger indiceLinea = new AtomicInteger(-1);
 		try (Stream<String> lineasDelArchivo = Files.lines(Paths.get(this.archivo))) {
-
-			this.palabras = lineasDelArchivo
+			this.lineasDelTexto = lineasDelArchivo
 					.map(s -> {
-							int linea = indiceLinea.incrementAndGet();
-							return new Linea(s, linea);
-					})
-					.flatMap(l -> l.getPalabras().stream())
-					.collect(Collectors.toList());
-
+						int linea = indiceLinea.incrementAndGet();
+						return new Linea(s, linea);
+				})
+				.collect(Collectors.toList());
+			
+			this.palabras = this.listaDePalabrasDelArchivo();
+			
 		} catch (IOException e) {
 			throw e;
 		}
+	}
+	
+	public List<Palabra> listaDePalabrasDelArchivo() {
+
+		return this.lineasDelTexto
+				.stream()
+				.flatMap(l -> l.getPalabras().stream())
+				.collect(Collectors.toList());
 	}
 
 	public void evaluarPatrones() {
