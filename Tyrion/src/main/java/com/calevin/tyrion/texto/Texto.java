@@ -65,6 +65,29 @@ public class Texto {
 		}
 	}
 	
+	public Palabra obtenerPalabraEnPosicionRestada(Posicion posicionInicial, int posicionesArestar) {
+		Linea lineaInicial = this.lineasDelTexto.get(posicionInicial.getLinea());
+		Linea anteriorLinea = this.lineasDelTexto.get(posicionInicial.getLinea()-1);
+		
+		int limiteInicioDeLinea = 0;
+		
+		int posicionRestada = posicionInicial.getColumna()-posicionesArestar;
+		
+		if (posicionRestada< limiteInicioDeLinea) {
+			int posicionExcedida = anteriorLinea.getPalabras().size()+posicionRestada;
+			
+			if(posicionExcedida < limiteInicioDeLinea) {
+				posicionInicial.setLinea(posicionInicial.getLinea()-1);
+				
+				return obtenerPalabraEnPosicionRestada(posicionInicial, Math.abs(posicionExcedida));
+			}
+			
+			return anteriorLinea.getPalabras().get(posicionExcedida);
+		} else {
+			return lineaInicial.getPalabras().get(posicionRestada);
+		}
+	}
+	
 	public Map<Posicion, Palabra> getMapPalabras() {
 		return mapPalabras;
 	}

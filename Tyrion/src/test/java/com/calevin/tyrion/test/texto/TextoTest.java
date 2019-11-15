@@ -91,7 +91,6 @@ public class TextoTest {
 		Posicion posicionInicial = new Posicion(1, 1);
 		int posicionesAsumar = 1;
 		
-		
 		//When
 		t.setLineasDelTexto(lineas);
 		
@@ -113,7 +112,6 @@ public class TextoTest {
 		
 		Posicion posicionInicial = new Posicion(1, 1);
 		int posicionesAsumar = 2;
-		
 		
 		//When
 		t.setLineasDelTexto(lineas);
@@ -137,12 +135,77 @@ public class TextoTest {
 		Posicion posicionInicial = new Posicion(0, 0);
 		int posicionesAsumar = 3;
 		
-		
 		//When
 		t.setLineasDelTexto(lineas);
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionSumada(posicionInicial, posicionesAsumar);
 		
 		assertTrue(palabraObtenida.equals(new Palabra("cuatro", new Posicion(2, 0))));
+	}
+	
+	@Test
+	public void obtener_palabra_en_posicion_restada_misma_linea() {
+		//Given:
+		Texto t = new Texto();
+		
+		List<Linea> lineas = Arrays.asList(
+				new Linea("uno dos tres", 0)
+				, new Linea("cuatro cinco seis", 1)
+				, new Linea("siente ocho nueve", 2)
+				);
+		
+		Posicion posicionInicial = new Posicion(1, 1);
+		int posicionesArestar = 1;
+		
+		//When
+		t.setLineasDelTexto(lineas);
+		
+		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
+		
+		assertTrue(palabraObtenida.equals(new Palabra("cuatro", new Posicion(1, 0))));
+	}
+	
+	@Test
+	public void obtener_palabra_en_posicion_restada_anterior_linea() {
+		//Given:
+		Texto t = new Texto();
+		
+		List<Linea> lineas = Arrays.asList(
+				new Linea("uno dos tres", 0)
+				, new Linea("cuatro cinco seis", 1)
+				, new Linea("siente ocho nueve", 2)
+				);
+		
+		Posicion posicionInicial = new Posicion(1, 0);
+		int posicionesArestar = 1;
+		
+		//When
+		t.setLineasDelTexto(lineas);
+		
+		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
+		
+		assertTrue(palabraObtenida.equals(new Palabra("tres", new Posicion(0, 2))));
+	}
+	
+	@Test
+	public void obtener_palabra_en_posicion_restada_anterior_anterior_linea() {
+		//Given:
+		Texto t = new Texto();
+		
+		List<Linea> lineas = Arrays.asList(
+				new Linea("uno", 0)
+				, new Linea("dos tres", 1)
+				, new Linea("cuatro cinco seis", 2)
+				);
+		
+		Posicion posicionInicial = new Posicion(2, 0);
+		int posicionesArestar = 3;
+		
+		//When
+		t.setLineasDelTexto(lineas);
+		
+		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
+		
+		assertTrue(palabraObtenida.equals(new Palabra("uno", new Posicion(0, 0))));
 	}
 }
