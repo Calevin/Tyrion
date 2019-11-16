@@ -42,7 +42,7 @@ public class TextoTest {
 		//When
 		t.setLineasDelTexto(lineas);
 
-		//Then		
+		//Then
 		assertTrue(t.listaDePalabrasToLineasDelTexto().equals(palabras));
 	}
 	
@@ -96,6 +96,7 @@ public class TextoTest {
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionSumada(posicionInicial, posicionesAsumar);
 		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("seis", new Posicion(1, 2))));
 	}
 	
@@ -117,7 +118,7 @@ public class TextoTest {
 		t.setLineasDelTexto(lineas);
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionSumada(posicionInicial, posicionesAsumar);
-		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("siente", new Posicion(2, 0))));
 	}
 	
@@ -140,6 +141,7 @@ public class TextoTest {
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionSumada(posicionInicial, posicionesAsumar);
 		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("cuatro", new Posicion(2, 0))));
 	}
 	
@@ -162,6 +164,7 @@ public class TextoTest {
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
 		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("cuatro", new Posicion(1, 0))));
 	}
 	
@@ -184,6 +187,7 @@ public class TextoTest {
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
 		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("tres", new Posicion(0, 2))));
 	}
 	
@@ -206,6 +210,44 @@ public class TextoTest {
 		
 		Palabra palabraObtenida = t.obtenerPalabraEnPosicionRestada(posicionInicial, posicionesArestar);
 		
+		//Then
 		assertTrue(palabraObtenida.equals(new Palabra("uno", new Posicion(0, 0))));
+	}
+	
+	@Test 
+	public void convertir_posicion_en_indice_palabra_ok(){
+		//Given:
+		Texto t = new Texto();
+		
+		List<Linea> lineas = Arrays.asList(
+				new Linea("uno", 0)
+				, new Linea("dos tres", 1)
+				, new Linea("cuatro cinco seis", 2)
+				);
+		
+		Posicion posicionDeUno = new Posicion(0, 0);
+		Posicion posicionDeTres = new Posicion(1, 1);
+		Posicion posicionDeSeis = new Posicion(2, 2);
+		
+		//When
+		t.setLineasDelTexto(lineas);
+		List<Palabra> palabras = t.listaDePalabrasToLineasDelTexto();
+		
+		int indiceParaUno = t.convertirPosicionEnIndicePalabra(posicionDeUno); 
+		int indiceParaTres = t.convertirPosicionEnIndicePalabra(posicionDeTres);
+		int indiceParaSeis =  t.convertirPosicionEnIndicePalabra(posicionDeSeis);
+		
+		//Then
+		assertTrue(indiceParaUno == 0);
+		Palabra palabraEnindiceParaUno = palabras.get(indiceParaUno);
+		assertTrue(palabraEnindiceParaUno.equals(new Palabra("uno", new Posicion(0, 0))));
+		
+		assertTrue(indiceParaTres == 2);
+		Palabra palabraEnindiceParaTres = palabras.get(indiceParaTres);
+		assertTrue(palabraEnindiceParaTres.equals(new Palabra("tres", new Posicion(1, 1))));
+		
+		assertTrue(indiceParaSeis == 5);
+		Palabra palabraEnindiceParaSeis = palabras.get(indiceParaSeis);
+		assertTrue(palabraEnindiceParaSeis.equals(new Palabra("seis", new Posicion(2, 2))));
 	}
 }

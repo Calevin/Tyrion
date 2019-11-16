@@ -88,6 +88,18 @@ public class Texto {
 		}
 	}
 	
+	public int convertirPosicionEnIndicePalabra(Posicion posicion) {
+		int linea = posicion.getLinea();
+		int columna = posicion.getColumna();
+		int respuesta = 0;
+		
+		for (int i = 0; i < linea; i++) {
+			respuesta+= this.getLineasDelTexto().get(i).getPalabras().size();
+		}
+		
+		return respuesta+columna;
+	}
+	
 	public Map<Posicion, Palabra> getMapPalabras() {
 		return mapPalabras;
 	}
