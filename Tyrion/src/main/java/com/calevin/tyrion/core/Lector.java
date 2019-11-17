@@ -69,12 +69,7 @@ public class Lector {
 			patron.resetPatron();
 		}
 	}
-	
-	public List<Palabra> obetenerPalabrasDePatronEncontrado(PatronEncontrado patronEncontrado) {
-		//TODO		
-		return null;
-	}
-	
+			
 	public Posicion getPosicionInicialPatron(Palabra palabraFinal, Patron patron) {
 		
 		int indicePalabraFinal = 1+this.texto.getPalabras().indexOf(palabraFinal);
