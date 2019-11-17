@@ -14,13 +14,13 @@ import com.calevin.tyrion.patron.PatronEncontrado;
 import com.calevin.tyrion.texto.Linea;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
+import com.calevin.tyrion.texto.Texto;
 
 public class Lector {
 
 	private List<PatronEncontrado> patronesEncontrados = new ArrayList<PatronEncontrado>();
 	private List<Patron> patrones = new ArrayList<Patron>();
-	private List<Palabra> palabras;
-	private List<Linea> lineasDelTexto;
+	private Texto texto;
 	private String archivo;
 	
 	public Lector(String archivo) {
@@ -28,33 +28,31 @@ public class Lector {
 		this.archivo = archivo;
 	}
 
+	public Lector(Texto texto) {
+		super();
+		this.texto = texto;
+	}
+	
 	public void cargarArchivo() throws IOException {
 		AtomicInteger indiceLinea = new AtomicInteger(-1);
 		try (Stream<String> lineasDelArchivo = Files.lines(Paths.get(this.archivo))) {
-			this.lineasDelTexto = lineasDelArchivo
-					.map(s -> {
-						int linea = indiceLinea.incrementAndGet();
-						return new Linea(s, linea);
-				})
-				.collect(Collectors.toList());
-			
-			this.palabras = this.listaDePalabrasDelArchivo();
-			
+			this.texto = new Texto(
+					lineasDelArchivo
+						.map(s -> {
+							int linea = indiceLinea.incrementAndGet();
+							return new Linea(s, linea);
+					})
+					.collect(Collectors.toList())
+				);
+					
 		} catch (IOException e) {
 			throw e;
 		}
 	}
 	
-	public List<Palabra> listaDePalabrasDelArchivo() {
-
-		return this.lineasDelTexto
-				.stream()
-				.flatMap(l -> l.getPalabras().stream())
-				.collect(Collectors.toList());
-	}
-
 	public void evaluarPatrones() {
-		this.palabras
+		this.texto
+			.getPalabras()
 			.stream()
 			.forEach(palabra -> {
 				this.patrones
@@ -79,10 +77,10 @@ public class Lector {
 	
 	public Posicion getPosicionInicialPatron(Palabra palabraFinal, Patron patron) {
 		
-		int indicePalabraFinal = 1+this.palabras.indexOf(palabraFinal);
+		int indicePalabraFinal = 1+this.texto.getPalabras().indexOf(palabraFinal);
 		int indicePalabraInicial = indicePalabraFinal-patron.getLargoPatron();
 		
-		return this.palabras.get(indicePalabraInicial).getPosicion();
+		return this.texto.getPalabras().get(indicePalabraInicial).getPosicion();
 	}
 	
 	public void imprimirPatronesEncontrados() {
@@ -96,14 +94,6 @@ public class Lector {
 		System.out.println("********************************************************");
 	}
 	
-	public List<Palabra> getPalabras() {
-		return palabras;
-	}
-
-	public void setPalabras(List<Palabra> palabras) {
-		this.palabras = palabras;
-	}
-	
 	public List<Patron> getPatrones() {
 		return patrones;
 	}
@@ -113,5 +103,13 @@ public class Lector {
 	}
 	public List<PatronEncontrado> getPatronesEncontrados() {
 		return patronesEncontrados;
+	}
+
+	public Texto getTexto() {
+		return texto;
+	}
+
+	public void setTexto(Texto texto) {
+		this.texto = texto;
 	}
 }

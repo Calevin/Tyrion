@@ -15,6 +15,7 @@ import com.calevin.tyrion.patron.nodo.NodoPatron;
 import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
+import com.calevin.tyrion.texto.Texto;
 
 public class LectorTest {
 	@Test
@@ -22,7 +23,7 @@ public class LectorTest {
 		Lector l = new Lector("D:\\GitHub\\Tyrion\\Tyrion\\src\\test\\resources\\test_un_patron.txt");
 		l.cargarArchivo();
 		
-		l.getPalabras().equals(Arrays.asList(
+		l.getTexto().getPalabras().equals(Arrays.asList(
 				new Palabra("uno", new Posicion(1))
 				, new Palabra("dos", new Posicion(2))
 				, new Palabra("tres", new Posicion(3))
@@ -39,6 +40,8 @@ public class LectorTest {
 	@Test
 	public void getPosicionInicialPatron_ok() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoDos = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new ObligatorioConstante("dos"));
 		
@@ -58,14 +61,16 @@ public class LectorTest {
 		Posicion lineaUnoColumnaUno = new Posicion(1);
 		Posicion lineaUnoColumnaDos = new Posicion(2);
 		Palabra dos = new Palabra("dos", lineaUnoColumnaDos);
-		Palabra tres = new Palabra("tres", new Posicion(3)); 
+		Palabra tres = new Palabra("tres", new Posicion(3));
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", lineaUnoColumnaUno)
 				, dos
 				, tres
 				));
-
+		
+		lector.setTexto(texto);
+		
 		assertTrue(lector.getPosicionInicialPatron(dos, patronUnoDos).equals(lineaUnoColumnaUno)
 				&& lector.getPosicionInicialPatron(tres, patronUnoDosTres).equals(lineaUnoColumnaUno)
 				&& lector.getPosicionInicialPatron(tres, patronDosTres).equals(lineaUnoColumnaDos));

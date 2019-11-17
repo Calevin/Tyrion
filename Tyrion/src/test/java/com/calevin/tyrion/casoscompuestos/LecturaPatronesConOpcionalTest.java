@@ -12,6 +12,7 @@ import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
 import com.calevin.tyrion.patron.nodo.opcional.OpcionalVariable;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
+import com.calevin.tyrion.texto.Texto;
 
 import static com.calevin.tyrion.test.patron.nodo.obligatorio.ObligatorioVariableTest.*;
 
@@ -23,6 +24,8 @@ public class LecturaPatronesConOpcionalTest {
 	@Test
 	public void evaluar_patron_tres_opcionales_constante_ok() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoDosTres = new OpcionalConstante("optuno")
 				.encadenarSiguiente(new OpcionalConstante("optdos"))
 				.encadenarSiguiente(new OpcionalConstante("opttres"));
@@ -37,12 +40,13 @@ public class LecturaPatronesConOpcionalTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("optuno", posicionUnoUno)
 				, new Palabra("optdos", posicionUnoDos)
 				, new Palabra("opttres", posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoDosTresEncontrado 
@@ -55,8 +59,9 @@ public class LecturaPatronesConOpcionalTest {
 	
 	@Test
 	public void evaluar_patron_tres_opcionales_variables_ok() {
-		
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoDosTres = new OpcionalVariable(regexLetraMayuscula)
 				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula))
 				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula));
@@ -71,12 +76,13 @@ public class LecturaPatronesConOpcionalTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno )
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 
 		PatronEncontrado patronUnoDosTresEncontrado 
@@ -90,6 +96,8 @@ public class LecturaPatronesConOpcionalTest {
 	@Test
 	public void evaluar_patron_opcionales_constante_variable_constante() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoAlgoTres = new OpcionalConstante("uno")
 				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula))
 				.encadenarSiguiente(new OpcionalConstante("tres"));
@@ -104,12 +112,13 @@ public class LecturaPatronesConOpcionalTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", posicionUnoUno)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
 				, new Palabra("tres", posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoAlgoTresEncontrado 
@@ -123,6 +132,8 @@ public class LecturaPatronesConOpcionalTest {
 	@Test
 	public void evaluar_patron_opcionales_variable_constante_variable() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron algoDosAlgo = new OpcionalVariable(regexLetraMayuscula)
 				.encadenarSiguiente(new OpcionalConstante("dos"))
 				.encadenarSiguiente(new OpcionalVariable(regexLetraMayuscula));
@@ -137,12 +148,13 @@ public class LecturaPatronesConOpcionalTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno)
 				, new Palabra("dos", posicionUnoDos)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronAlgoDosAlgoEncontrado 

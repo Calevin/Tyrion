@@ -15,6 +15,7 @@ import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioVariable;
 import static com.calevin.tyrion.test.patron.nodo.obligatorio.ObligatorioVariableTest.*;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
+import com.calevin.tyrion.texto.Texto;
 
 public class LecturaPatronesConObligatoriosTest {
 	private String regexLetraMayuscula = "[A-Z]";
@@ -22,6 +23,8 @@ public class LecturaPatronesConObligatoriosTest {
 	@Test
 	public void evaluar_patron_tres_obligatorios_constante_ok() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoDosTres = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new ObligatorioConstante("dos"))
 				.encadenarSiguiente(new ObligatorioConstante("tres"));
@@ -36,12 +39,13 @@ public class LecturaPatronesConObligatoriosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", posicionUnoUno)
 				, new Palabra("dos", posicionUnoDos)
 				, new Palabra("tres", posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoDosTresEncontrado 
@@ -54,8 +58,9 @@ public class LecturaPatronesConObligatoriosTest {
 	
 	@Test
 	public void evaluar_patron_tres_obligatorios_variables_ok() {
-		
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoDosTres = new ObligatorioVariable(regexLetraMayuscula)
 				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula))
 				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula));
@@ -70,12 +75,13 @@ public class LecturaPatronesConObligatoriosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoDosTresEncontrado 
@@ -89,6 +95,8 @@ public class LecturaPatronesConObligatoriosTest {
 	@Test
 	public void evaluar_patron_obligatorios_constante_variable_constante() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron unoAlgoTres = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula))
 				.encadenarSiguiente(new ObligatorioConstante("tres"));
@@ -103,12 +111,13 @@ public class LecturaPatronesConObligatoriosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", posicionUnoUno)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
 				, new Palabra("tres", posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoAlgoTresEncontrado 
@@ -122,6 +131,8 @@ public class LecturaPatronesConObligatoriosTest {
 	@Test
 	public void evaluar_patron_obligatorios_variable_constante_variable() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		NodoPatron algoDosAlgo = new ObligatorioVariable(regexLetraMayuscula)
 				.encadenarSiguiente(new ObligatorioConstante("dos"))
 				.encadenarSiguiente(new ObligatorioVariable(regexLetraMayuscula));
@@ -136,12 +147,13 @@ public class LecturaPatronesConObligatoriosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno)
 				, new Palabra("dos", posicionUnoDos)
 				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 
 		PatronEncontrado patronAlgoDosAlgoEncontrado 

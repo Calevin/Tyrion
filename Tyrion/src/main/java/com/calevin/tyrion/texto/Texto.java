@@ -1,13 +1,9 @@
 package com.calevin.tyrion.texto;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Texto {
-	private Map<Posicion, Palabra> mapPalabras;
 	private List<Palabra> palabras;
 	private List<Linea> lineasDelTexto;
 	
@@ -19,7 +15,6 @@ public class Texto {
 		super();
 		this.lineasDelTexto = lineasDelTexto;
 		this.palabras = this.listaDePalabrasToLineasDelTexto();
-		this.setMapPalabras(this.mapDePalabrasToLineasDelTexto());
 	}
 	
 	public List<Palabra> listaDePalabrasToLineasDelTexto() {
@@ -28,15 +23,7 @@ public class Texto {
 				.stream()
 				.flatMap(l -> l.getPalabras().stream())
 				.collect(Collectors.toList());
-	}
-	
-	public TreeMap<Posicion, Palabra> mapDePalabrasToLineasDelTexto() {
-
-		return this.palabras
-				.stream()
-				.sorted()
-				.collect(Collectors.toMap(Palabra::getPosicion, Function.identity(), (o1, o2) -> o1, TreeMap::new));		
-	}
+	}	
 	
 	public List<Palabra> obtenerRangoDePalabras(Posicion posicionInicial, int palabras) {
 		//TODO
@@ -100,14 +87,6 @@ public class Texto {
 		return respuesta+columna;
 	}
 	
-	public Map<Posicion, Palabra> getMapPalabras() {
-		return mapPalabras;
-	}
-
-	public void setMapPalabras(Map<Posicion, Palabra> mapPalabras) {
-		this.mapPalabras = mapPalabras;
-	}
-
 	public List<Palabra> getPalabras() {
 		return palabras;
 	}

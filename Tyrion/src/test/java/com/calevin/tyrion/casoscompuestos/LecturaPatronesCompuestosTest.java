@@ -16,12 +16,14 @@ import com.calevin.tyrion.patron.nodo.obligatorio.ObligatorioConstante;
 import com.calevin.tyrion.patron.nodo.opcional.OpcionalConstante;
 import com.calevin.tyrion.texto.Palabra;
 import com.calevin.tyrion.texto.Posicion;
+import com.calevin.tyrion.texto.Texto;
 
 public class LecturaPatronesCompuestosTest {
 		
 	@Test
 	public void encontrando_patron_con_opcional() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
 		
 		NodoPatron unoQuizasComaDos = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new OpcionalConstante(","))
@@ -33,11 +35,13 @@ public class LecturaPatronesCompuestosTest {
 		
 		lector.getPatrones().add(patronUnoQuizasComaDos);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", new Posicion(1))
 				, new Palabra(",", new Posicion(2))
 				, new Palabra("dos", new Posicion(3))
 				));
+		
+		lector.setTexto(texto);
 		
 		lector.evaluarPatrones();
 
@@ -45,14 +49,12 @@ public class LecturaPatronesCompuestosTest {
 		= new PatronEncontrado(patronUnoQuizasComaDos, new Posicion(1, 1), new Posicion(1, 2));
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoQuizasComaDosEncontrado));
-
-		System.out.println("Leyendo: " + lector.getPalabras());
 		
 		lector.imprimirPatronesEncontrados();
 		
 		System.out.println("Texto 2");
 
-		lector.setPalabras(Arrays.asList(
+		lector.getTexto().setPalabras(Arrays.asList(
 				new Palabra("uno", new Posicion(1))
 				, new Palabra("dos", new Posicion(2))
 				));
@@ -61,14 +63,14 @@ public class LecturaPatronesCompuestosTest {
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoQuizasComaDosEncontrado));
 		
-		System.out.println("Leyendo: " + lector.getPalabras());
-		
 		lector.imprimirPatronesEncontrados();
 	}
 	
 	@Test
 	public void encontrando_dos_patrones_obligatorio_constante_mismo_inicio() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
+		
 		ObligatorioConstante unoDos = new ObligatorioConstante("uno");
 		
 		Patron patronUnoDos = unoDos.encadenarSiguiente(new ObligatorioConstante("dos")).componerPatron();
@@ -89,12 +91,13 @@ public class LecturaPatronesCompuestosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", posicionUnoUno)
 				, new Palabra("dos", posicionUnoDos)
 				, new Palabra("tres", posicionUnoTres)
 				));
 
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 		
 		PatronEncontrado patronUnoDosTresEncontrado 
@@ -114,6 +117,7 @@ public class LecturaPatronesCompuestosTest {
 	@Test
 	public void encontrando_dos_patrones_obligatorio_constante_distinto_inicio() {
 		Lector lector = new Lector("");
+		Texto texto = new Texto();
 		
 		Patron patronUnoDos = new ObligatorioConstante("uno")
 				.encadenarSiguiente(new ObligatorioConstante("dos"))
@@ -134,12 +138,13 @@ public class LecturaPatronesCompuestosTest {
 		Posicion posicionUnoDos = new Posicion(1, 2);
 		Posicion posicionUnoTres = new Posicion(1, 3);
 		
-		lector.setPalabras(Arrays.asList(
+		texto.setPalabras(Arrays.asList(
 				new Palabra("uno", posicionUnoUno)
 				, new Palabra("dos", posicionUnoDos)
 				, new Palabra("tres", posicionUnoTres)
 				));
 
+		lector.setTexto(texto);
 		lector.evaluarPatrones();
 				
 		PatronEncontrado patronUnoDosTresEncontrado 
