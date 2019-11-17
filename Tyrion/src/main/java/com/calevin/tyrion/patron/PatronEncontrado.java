@@ -5,12 +5,14 @@ import com.calevin.tyrion.texto.Posicion;
 public class PatronEncontrado {
 
 	private Patron patron;
-	private Posicion posicionEncontrado;
-	
-	public PatronEncontrado(Patron patron, Posicion posicionEncontrado) {
+	private Posicion posicionInicio;
+	private Posicion posicionFinal;
+		
+	public PatronEncontrado(Patron patron, Posicion posicionEncontrado, Posicion posicionFinal) {
 		super();
 		this.patron = patron;
-		this.posicionEncontrado = posicionEncontrado;
+		this.posicionInicio = posicionEncontrado;
+		this.posicionFinal = posicionFinal;
 	}
 
 	public Patron getPatron() {
@@ -21,12 +23,20 @@ public class PatronEncontrado {
 		this.patron = patron;
 	}
 
-	public Posicion getPosicionEncontrado() {
-		return posicionEncontrado;
+	public Posicion getPosicionInicio() {
+		return posicionInicio;
 	}
 
-	public void setPosicionEncontrado(Posicion posicionEncontrado) {
-		this.posicionEncontrado = posicionEncontrado;
+	public void setPosicionInicio(Posicion posicionEncontrado) {
+		this.posicionInicio = posicionEncontrado;
+	}
+
+	public Posicion getPosicionFinal() {
+		return posicionFinal;
+	}
+
+	public void setPosicionFinal(Posicion posicionFinal) {
+		this.posicionFinal = posicionFinal;
 	}
 
 	@Override
@@ -34,7 +44,8 @@ public class PatronEncontrado {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((patron == null) ? 0 : patron.hashCode());
-		result = prime * result + ((posicionEncontrado == null) ? 0 : posicionEncontrado.hashCode());
+		result = prime * result + ((posicionFinal == null) ? 0 : posicionFinal.hashCode());
+		result = prime * result + ((posicionInicio == null) ? 0 : posicionInicio.hashCode());
 		return result;
 	}
 
@@ -52,10 +63,15 @@ public class PatronEncontrado {
 				return false;
 		} else if (!patron.equals(other.patron))
 			return false;
-		if (posicionEncontrado == null) {
-			if (other.posicionEncontrado != null)
+		if (posicionFinal == null) {
+			if (other.posicionFinal != null)
 				return false;
-		} else if (!posicionEncontrado.equals(other.posicionEncontrado))
+		} else if (!posicionFinal.equals(other.posicionFinal))
+			return false;
+		if (posicionInicio == null) {
+			if (other.posicionInicio != null)
+				return false;
+		} else if (!posicionInicio.equals(other.posicionInicio))
 			return false;
 		return true;
 	}

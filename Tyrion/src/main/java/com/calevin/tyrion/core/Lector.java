@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -69,9 +67,14 @@ public class Lector {
 		if (patron.evaluar(palabra) 
 				&& patron.patronEncontrado()) {
 			
-			this.patronesEncontrados.add(new PatronEncontrado(patron, patron.getPosicionInicial()));
+			this.patronesEncontrados.add(new PatronEncontrado(patron, patron.getPosicionInicial(), palabra.getPosicion()));
 			patron.resetPatron();
 		}
+	}
+	
+	public List<Palabra> obetenerPalabrasDePatronEncontrado(PatronEncontrado patronEncontrado) {
+		//TODO		
+		return null;
 	}
 	
 	public Posicion getPosicionInicialPatron(Palabra palabraFinal, Patron patron) {
@@ -87,7 +90,7 @@ public class Lector {
 		System.out.println("Inicio Patrones Encontrados:");
 		this.getPatronesEncontrados()
 		.forEach(pe -> { 
-				System.out.println(pe.getPosicionEncontrado()  + "\n" + pe.getPatron() + "\n");
+				System.out.println(pe.getPosicionInicio()  + "\n" + pe.getPatron() + "\n");
 			});
 		System.out.println("fin Patrones Encontrados.");
 		System.out.println("********************************************************");

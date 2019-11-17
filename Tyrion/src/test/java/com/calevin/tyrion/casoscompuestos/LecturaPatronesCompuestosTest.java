@@ -41,7 +41,8 @@ public class LecturaPatronesCompuestosTest {
 		
 		lector.evaluarPatrones();
 
-		PatronEncontrado patronUnoQuizasComaDosEncontrado = new PatronEncontrado(patronUnoQuizasComaDos, new Posicion(1, 1));
+		PatronEncontrado patronUnoQuizasComaDosEncontrado 
+		= new PatronEncontrado(patronUnoQuizasComaDos, new Posicion(1, 1), new Posicion(1, 2));
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoQuizasComaDosEncontrado));
 
@@ -84,16 +85,23 @@ public class LecturaPatronesCompuestosTest {
 		
 		lector.setPatrones(patrones);
 		
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("uno", new Posicion(1))
-				, new Palabra("dos", new Posicion(2))
-				, new Palabra("tres", new Posicion(3))
+				new Palabra("uno", posicionUnoUno)
+				, new Palabra("dos", posicionUnoDos)
+				, new Palabra("tres", posicionUnoTres)
 				));
 
 		lector.evaluarPatrones();
-		Posicion unoUno = new Posicion(1, 1);
-		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, unoUno);
-		PatronEncontrado patronUnoDosEncontrado = new PatronEncontrado(patronUnoDos, unoUno);
+		
+		PatronEncontrado patronUnoDosTresEncontrado 
+			= new PatronEncontrado(patronUnoDosTres, posicionUnoUno, posicionUnoTres);
+		
+		PatronEncontrado patronUnoDosEncontrado 
+			= new PatronEncontrado(patronUnoDos, posicionUnoUno, posicionUnoDos);
 		
 		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosTresEncontrado));
 		assertTrue(lector.getPatronesEncontrados().contains(patronUnoDosEncontrado));
@@ -122,19 +130,23 @@ public class LecturaPatronesCompuestosTest {
 		
 		lector.setPatrones(patrones);
 		
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("uno", new Posicion(1))
-				, new Palabra("dos", new Posicion(2))
-				, new Palabra("tres", new Posicion(3))
+				new Palabra("uno", posicionUnoUno)
+				, new Palabra("dos", posicionUnoDos)
+				, new Palabra("tres", posicionUnoTres)
 				));
 
 		lector.evaluarPatrones();
+				
+		PatronEncontrado patronUnoDosTresEncontrado 
+			= new PatronEncontrado(patronUnoDos, posicionUnoUno, posicionUnoDos);
 		
-		Posicion unoUno = new Posicion(1, 1);
-		Posicion unoDos = new Posicion(1, 2);
-		
-		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDos, unoUno);
-		PatronEncontrado patronUnoDosEncontrado = new PatronEncontrado(patronDosTres, unoDos);
+		PatronEncontrado patronUnoDosEncontrado 
+			= new PatronEncontrado(patronDosTres, posicionUnoDos, posicionUnoTres);
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		assertTrue(lector.getPatronesEncontrados().get(1).equals(patronUnoDosEncontrado));

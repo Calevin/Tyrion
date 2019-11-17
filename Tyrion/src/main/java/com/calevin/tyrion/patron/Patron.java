@@ -33,9 +33,10 @@ public class Patron {
 		boolean resultadoEvaluacion = false;
 		
 		if (nodoActual.tieneMismoValor(palabraAevaluar)) {
-			if(nodoActual.equals(patronCompuesto)) {
+			if(esNodoInicial()) {
 				this.posicionInicial = palabraAevaluar.getPosicion();
 			}
+			
 			nodoActual = nodoActual.getSiguienteNodoParaEvaluar();
 			resultadoEvaluacion = true;
 		} else {
@@ -50,10 +51,14 @@ public class Patron {
 		return resultadoEvaluacion;
 	}
 	
+	public boolean esNodoInicial() {
+		return posicionInicial == null ? nodoActual.equals(patronCompuesto) : false;
+	}
+		
 	public boolean patronEncontrado() {
 		return nodoActual==null;
 	}
-	
+		
 	public void resetPatron() {
 		this.nodoActual = this.patronCompuesto;
 		this.posicionInicial = null;

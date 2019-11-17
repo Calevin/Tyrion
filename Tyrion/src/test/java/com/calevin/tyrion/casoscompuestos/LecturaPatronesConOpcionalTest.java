@@ -33,15 +33,20 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.getPatrones().add(patronUnoDosTres);
 		
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("optuno", new Posicion(1))
-				, new Palabra("optdos", new Posicion(2))
-				, new Palabra("opttres", new Posicion(3))
+				new Palabra("optuno", posicionUnoUno)
+				, new Palabra("optdos", posicionUnoDos)
+				, new Palabra("opttres", posicionUnoTres)
 				));
 		
 		lector.evaluarPatrones();
 		
-		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
+		PatronEncontrado patronUnoDosTresEncontrado 
+			= new PatronEncontrado(patronUnoDosTres, posicionUnoUno, posicionUnoDos);
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
@@ -62,15 +67,20 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.getPatrones().add(patronUnoDosTres);
 
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra(generarLetraMayusculaRandom(), new Posicion(1))
-				, new Palabra(generarLetraMayusculaRandom(), new Posicion(2))
-				, new Palabra(generarLetraMayusculaRandom(), new Posicion(3))
+				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno )
+				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
+				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
 		lector.evaluarPatrones();
 
-		PatronEncontrado patronUnoDosTresEncontrado = new PatronEncontrado(patronUnoDosTres, new Posicion(1, 1));
+		PatronEncontrado patronUnoDosTresEncontrado 
+			= new PatronEncontrado(patronUnoDosTres, posicionUnoUno, posicionUnoDos);
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoDosTresEncontrado));
 		
@@ -90,15 +100,20 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.getPatrones().add(patronUnoAlgoTres);
 		
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra("uno", new Posicion(1))
-				, new Palabra(generarLetraMayusculaRandom(), new Posicion(2))
-				, new Palabra("tres", new Posicion(3))
+				new Palabra("uno", posicionUnoUno)
+				, new Palabra(generarLetraMayusculaRandom(), posicionUnoDos)
+				, new Palabra("tres", posicionUnoTres)
 				));
 		
 		lector.evaluarPatrones();
 		
-		PatronEncontrado patronUnoAlgoTresEncontrado = new PatronEncontrado(patronUnoAlgoTres, new Posicion(1, 1));
+		PatronEncontrado patronUnoAlgoTresEncontrado 
+			= new PatronEncontrado(patronUnoAlgoTres, posicionUnoUno, posicionUnoDos);
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronUnoAlgoTresEncontrado));
 		
@@ -118,15 +133,20 @@ public class LecturaPatronesConOpcionalTest {
 		
 		lector.getPatrones().add(patronAlgoDosAlgo);
 		
+		Posicion posicionUnoUno = new Posicion(1, 1);
+		Posicion posicionUnoDos = new Posicion(1, 2);
+		Posicion posicionUnoTres = new Posicion(1, 3);
+		
 		lector.setPalabras(Arrays.asList(
-				new Palabra(generarLetraMayusculaRandom(), new Posicion(1))
-				, new Palabra("dos", new Posicion(2))
-				, new Palabra(generarLetraMayusculaRandom(), new Posicion(3))
+				new Palabra(generarLetraMayusculaRandom(), posicionUnoUno)
+				, new Palabra("dos", posicionUnoDos)
+				, new Palabra(generarLetraMayusculaRandom(), posicionUnoTres)
 				));
 		
 		lector.evaluarPatrones();
 		
-		PatronEncontrado patronAlgoDosAlgoEncontrado = new PatronEncontrado(patronAlgoDosAlgo, new Posicion(1, 1));
+		PatronEncontrado patronAlgoDosAlgoEncontrado 
+			= new PatronEncontrado(patronAlgoDosAlgo, posicionUnoUno, posicionUnoDos);
 		
 		assertTrue(lector.getPatronesEncontrados().get(0).equals(patronAlgoDosAlgoEncontrado));
 		
